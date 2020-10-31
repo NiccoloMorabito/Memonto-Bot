@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+"EMOJIS"
 
 from emoji import emojize
 
@@ -7,7 +7,7 @@ def get_emoji(name):
 
 PLUSSIGN    = get_emoji(":heavy_plus_sign:")
 OPENFOLDER  = get_emoji(":open_file_folder:")
-TRASH    = get_emoji(":wastebasket:")
+TRASH       = get_emoji(":wastebasket:")
 GEAR        = get_emoji(":gear:")
 BELL        = get_emoji(":bell:")
 NOBELL      = get_emoji(":no_bell:")

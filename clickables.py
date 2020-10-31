@@ -65,7 +65,7 @@ INFO = {
 }
 CHANGELOGS = {
     EN : "Changelogs",
-    IT : "Novità"
+    IT : "Novità dell'ultima versione"
 }
 CANCEL = {
     EN : emojis.CROSS + " Cancel",
@@ -78,6 +78,10 @@ DELETEALL = {
 REMOVEALL = {
     EN : emojis.NOBELL + " Remove all " + emojis.NOBELL,
     IT : emojis.NOBELL + " Rimuovi tutti " + emojis.NOBELL
+}
+LISTALL = {
+    EN : "List all",
+    IT : "Elenca tutti"
 }
 
 MINUTES = {
@@ -160,18 +164,24 @@ CANCEL_CODE = "-1"
 def get_cancel_button(lang, operation):
     # if operation is DELETE MEMONTO
     if operation == 1:
-        callback = "MEMONTO #" + CANCEL_CODE
+        callback = CANCEL_CODE
     # else if operation is REMOVE REMINDER
     elif operation == 2:
         callback = CANCEL_CODE + "d"
+    # else if operation is LIST MEMONTOS
+    elif operation == 3:
+        callback = CANCEL[lang]
     return [InlineKeyboardButton(CANCEL[lang], callback_data=callback)]
 
 EVERYTHING_CODE = "-2"
 def get_everything_button(lang, operation):
     # if operation is DELETE MEMONTO
     if operation == 1:
-        return [InlineKeyboardButton(DELETEALL[lang], callback_data="MEMONTO #" + EVERYTHING_CODE)]
+        return [InlineKeyboardButton(DELETEALL[lang], callback_data=EVERYTHING_CODE)]
     # else if operation is REMOVE REMINDER
     elif operation == 2:
-       return [InlineKeyboardButton(REMOVEALL[lang], callback_data=EVERYTHING_CODE + "d")]
+        return [InlineKeyboardButton(REMOVEALL[lang], callback_data=EVERYTHING_CODE + "d")]
+    # else if operation is LIST MEMONTOS
+    elif operation == 3:
+        return [InlineKeyboardButton(LISTALL[lang], callback_data=LISTALL[lang])]
        

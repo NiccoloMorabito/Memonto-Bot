@@ -4,14 +4,9 @@ import datetime
 import re
 import messages
 from languages import IT, EN
-
-CHANGELOG_PATH = 'CHANGELOG.md'
-
-TIMESTAMP_FORMAT = '%d/%m/%Y %H:%M'
-
-MINUTE  = 'm'
-HOUR    = 'h'
-DAY     = 'd'
+from pickler import load_reminders, save_reminders
+from constants import CHANGELOG_PATH, DATETIME_FORMAT, DATE_FORMAT, MINUTE, HOUR, DAY
+from telegram_bot_calendar import DetailedTelegramCalendar
 
 def get_changes_of(version, lang):
     '''Returns a message for changelogs of the version passed, if exist.'''
@@ -38,14 +33,29 @@ def get_lang(update, is_query=False):
     return EN
 
 def parse_timestamp(timestamp):
-    '''Returns datetime of timestamp is in the following format: DD/MM/YYYY HH:MM, None otherwise.'''
+    '''Returns datetime if timestamp is a date or a date and a time, None otherwise.'''    
     try:
-        d = datetime.datetime.strptime(timestamp, TIMESTAMP_FORMAT)
+        d = datetime.datetime.strptime(timestamp, DATETIME_FORMAT)
         return d
     except:
-        return None
+        try:
+            d = datetime.datetime.strptime(timestamp, DATE_FORMAT)
+        except:
+            return None
+
+def is_time(string):
+    '''Checks if string is a time in format HH:MM'''
+    try:
+        hours, minutes = string.split(":")
+        hours = int(hours)
+        minutes = int(minutes)
+        if 0 <= hours < 24 and 0 <= minutes < 60:
+            return True
+        return False
+    except:
+        return False
     
-def timestamp_is_passed(parsed_timestamp):
+def timestamp_has_passed(parsed_timestamp):
     '''Returns true if parsed_timestamp is passed, false otherwise.'''
     now = datetime.datetime.now()
     diff = parsed_timestamp - now
@@ -92,3 +102,36 @@ def minutes_to_reminder_text(minutes):
     if minutes != 0:
         s += " " + str(minutes) + MINUTE
     return s
+
+def remove_reminder(user, reminder):
+    '''It removes the reminder from the reminders of user.'''
+    try:
+        time = reminder[-1]
+        number = int(reminder[:-1])
+        minutes = get_minutes_of(number, time)
+        reminders = load_reminders(user)
+        reminders.remove(minutes)
+        save_reminders(user, reminders)
+        return True
+    except:
+        return False
+
+
+# custom version of python-telegram-bot-calendar with Italian translation and new method
+class CustomTelegramCalendar(DetailedTelegramCalendar):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.days_of_week[IT] = list('LMMGVSD')
+        self.months[IT] = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', \
+                           'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic']
+            
+    def create(self):
+        '''Custom method to build the calendar with current year and month set.'''
+        current_month = datetime.datetime.now().month
+        current_year  = datetime.datetime.now().year
+        # string formatted according to python-telegram-bot-calendar:
+        #   cbcal is useless
+        #   0 is the calendar_id
+        #   s is the 'select' action
+        #   m is the 'month' step
+        return self.process(f"cbcal_0_s_m_{current_year}_{current_month}_1")

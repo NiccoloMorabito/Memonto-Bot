@@ -2,6 +2,7 @@
 
 import clickables
 from languages import IT, EN
+import emojis
 
 LANGUAGE_CHOICE = "Choose your language / Scegli la tua lingua"
 
@@ -36,8 +37,8 @@ LIMIT_REACHED = {
 }
 
 CREATION_STARTED = {
-    EN : "CREATION OF MEMONTO #{}",
-    IT : "CREAZIONE DEL MEMONTO #{}"    
+    EN : "CREATION OF MEMONTO",
+    IT : "CREAZIONE DEL MEMONTO"    
 }
 
 CHOOSE_CATEGORY = {
@@ -51,8 +52,8 @@ CATEGORY_SELECTED = {
 }
 
 TOO_MANY_CHARACTERS = {
-    EN : "The string you inserted is too long. Write less than {} characters.",
-    IT : "Il testo che hai inserito è troppo lungo. Scrivi meno di {} caratteri."    
+    EN : emojis.CROSS + " The string you inserted is too long. Write less than {} characters. " + emojis.CROSS,
+    IT : emojis.CROSS + " Il testo che hai inserito è troppo lungo. Scrivi meno di {} caratteri. " + emojis.CROSS   
 }
 
 INSERT_BRAND = {
@@ -61,8 +62,8 @@ INSERT_BRAND = {
 }
 
 INSERT_DESCRIPTION = {
-    EN : "Insert description of the offer",
-    IT : "Inserisci la descrizione dell'offerta"
+    EN : "Insert a brief description of the offer to easily identify it",
+    IT : "Inserisci una breve descrizione dell'offerta per identificarla facilmente"
 }
 
 INSERT_CODE = {
@@ -70,23 +71,36 @@ INSERT_CODE = {
     IT : "Inserisci il codice sconto"
 }
 
-INSERT_TIMESTAMP = {
-    EN : "Insert expiring date and time of the offer with the following format\n"
-            "DD/MM/YYYY HH:MM",
-    IT : "Inserisci la data e l'ora di scadenza dell'offerta nel seguente formato:\n"
-            "DD/MM/YYYY HH:MM"
+SELECT_DATE = {
+    EN : "Select the expiring date of the offer from the inline calendar below.",
+    IT : "Seleziona la data di scadenza dell'offerta dal calendario inline di seguito."
+}
+
+DATE_PASSED = {
+    EN : emojis.CROSS + " The date you selected has passed. " + emojis.CROSS,
+    IT : emojis.CROSS + " La data che hai scelto è passata. " + emojis.CROSS   
+}
+
+DATE_SELECTED = {
+    EN : "You selected {}",
+    IT : "Hai selezionato la data {}"   
+}
+
+INSERT_TIME = {
+    EN : "Insert expiring time of the offer in the following format HH:MM\n"
+            "If no time is specified, insert 23:59",
+    IT : "Inserisci l'ora di scadenza dell'offerta nel seguente formato HH:MM\n"
+            "Se nessuna ora è specificata, inserisci 23:59"
+}
+
+TIME_NOT_VALID = {
+    EN : emojis.CROSS + " Time is not valid. Insert time in the following format HH:MM " + emojis.CROSS,
+    IT : emojis.CROSS + " Orario non valido. Inserisci l'orario nel seguente formato HH:MM " + emojis.CROSS
 }
 
 TIMESTAMP_PASSED = {
-    EN : "The date and time you inserted are passed. Insert a valid date and time.",
-    IT : "La data e ora che hai inserito sono passati. Inserisci una data e ora validi."   
-}
-
-TIMESTAMP_NOT_VALID = {
-    EN : "Timestamp is not valid. Insert date and time with the following format:\n"
-            "DD/MM/YYYY HH:MM",
-    IT : "Il formato non è valido. Inserisci data e ora nel seguente formato:\n"
-            "DD/MM/YYYY HH:MM"
+    EN : emojis.CROSS + " The date and time you inserted have passed. Select a valid date and time. " + emojis.CROSS,
+    IT : emojis.CROSS + " La data e ora che hai inserito sono passati. Seleziona una data e ora validi. " + emojis.CROSS   
 }
 
 MEMONTO_CREATED = {
@@ -94,6 +108,20 @@ MEMONTO_CREATED = {
             .format(clickables.SETTINGS[EN]),
     IT : "Il tuo memonto è stato creato! Ricorda di gestire i tuoi promemoria in [{}] per essere notificato quando questo memonto sta scadendo."
             .format(clickables.SETTINGS[IT])
+}
+
+CHOOSE_CATEGORY_FOR_LISTING = {
+    EN : "Choose the category you want to list or list all.",
+    IT : "Scegli la categoria che vuoi elencare o elenca tutti."
+}
+
+LISTING_ALL = {
+    EN : "Listing all {} memontos",
+    IT : "Elenco di tutti i {} memonto"
+}
+LISTING_CATEGORY = {
+    EN : "Listing {} memontos of category {}",
+    IT : "Elenco di {} memonto della categoria {}"
 }
 
 DELETE_MEMONTO = {
@@ -112,8 +140,8 @@ OLD_MEMONTO_DELETED = {
 }
 
 MEMONTO_DELETED = {
-    EN : "The memonto #{} has been deleted.",
-    IT : "Il memonto #{} è stato cancellato."
+    EN : "The memonto has been deleted.",
+    IT : "Il memonto è stato cancellato."
 }
 
 ALL_MEMONTOS_DELETED = {
@@ -122,15 +150,17 @@ ALL_MEMONTOS_DELETED = {
 }
 
 EXPIRING_MEMONTO = {
-    EN : "REMINDER\n"
-            "The following memonto is expiring in {}:\n{}",
-    IT : "PROMEMORIA\n"
-            "Il seguente memonto scadrà tra {}:\n{}"
+    EN : emojis.BELL + " NOTIFICATION OF REMINDER " + emojis.BELL +\
+            "\nThe following memontos are expiring in {}:\n\n{}",
+    IT : emojis.BELL + " NOTIFICA DI PROMEMORIA" + emojis.BELL +\
+            "\nI seguenti memonto scadranno tra {}:\n\n{}"
 }
 
 MEMONTO_EXPIRED = {
-    EN : "The following memonto has just expired and it has been removed:\n{}",
-    IT : "Il seguente memonto è appena scaduto ed è stato cancellato:\n{}"
+    EN : emojis.TRASH + " NOTIFICATION OF EXPIRATION " + emojis.TRASH +\
+            "\nThe following memontos have just expired and have been deleted:\n\n{}",
+    IT : emojis.TRASH + " NOTIFICA DI SCADENZA " + emojis.TRASH +\
+            "\nI seguenti memonto sono appena scaduti e sono stati cancellati:\n\n{}"
 }
 
 NOMEMONTOS = {
@@ -251,7 +281,7 @@ HELP2 = {
 
 CHANGELOGS_HEADER = {
     EN : "CHANGELOGS IN VERSION {}:\n\n",
-    IT : "NOVITÀ NELLA VERSIONE {} (disponibili sono in inglese):\n\n"
+    IT : "NOVITÀ NELLA VERSIONE {} (disponibili solo in inglese):\n\n"
 }
 NO_CHANGELOGS_MESSAGE = {
     EN : "The nice developer forgot to write changes in version {} :( please contact @NiccoloMorabito to insult him!",

@@ -1,6 +1,37 @@
 # Changelog
 
-## [1.1.1] - 2020-10-08
+## [1.2] - 2020-10-31
+
+### Added
+
+- Translation of calendar for expiring date of memonto (now it is available also in Italian)
+- New method of memonto creation with only one message that shows the memonto in progress and the field request
+
+### Changed
+
+- Fixed the bug in the clock that led to sending all the notifications one minute before the right time
+- Optimization of the code
+- Now the memonto is not saved until the creation ends and the confirmation message is sent. In this way, errors during fields insertion do not leave incomplete memontos
+- New calendar for expiring date of memonto available: you are now able to change month or year more easily clicking on the button in the lower center
+- Memontos in "Delete memonto" section are now summarized with a brand + description text instead of its generated id
+- Memontos' messages in "List memontos" section and notifications are now better formatted and ids have been removed; moreover, now there is no more one message for each memonto in listing but all strings are concatenated in one message
+- Now in "List memontos" you are asked to choose category only if your memontos have not all the same category
+- Notifications of expired memontos or reminders are now collected in one single message for each category
+
+## [1.1.2] - 2020-10-21
+
+### Changed
+
+- For listing memontos, you are now able to select the category of memontos you want to list
+- Changed notification texts in order to make them more readable
+- New method to insert expiring date and time of a memonto: inline calendar for date, message for time
+
+### Removed
+
+- Little bug in notification for memonto expiration fixed
+- Other minor bugs fixed
+
+## [1.1.1] - 2020-10-09
 
 ### Added
 
